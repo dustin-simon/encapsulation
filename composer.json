@@ -15,9 +15,13 @@
         "name": "Dustin Simon"
     }],
     "autoload": {
-        "psr-4": { "Dustin\\Encapsulation\\": "src/" }
+        "psr-4": { "Dustin\\Encapsulation\\": "src/" },
+        "exclude-from-classmap": ["src/Test/"]
     },
     "require": {
         "php": "^7.4 || ^8"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.6"
     }
 }
