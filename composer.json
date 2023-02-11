@@ -1,0 +1,23 @@
+{
+    "name": "dustin/encapsulation",
+    "type": "library",
+    "version": "1.0.0",
+    "description": "A simple way accommodate, exchange and structorize data with objects",
+    "keywords": [
+        "object",
+        "encapsulation",
+        "data-exchange",
+        "array"
+    ],
+    "homepage": "https://dustinsimon.gitbook.io/encapsulation",
+    "license": "MIT",
+    "authors": [{
+        "name": "Dustin Simon"
+    }],
+    "autoload": {
+        "psr-4": { "Dustin\\Encapsulation\\": "src/" }
+    },
+    "require": {
+        "php": "^7.4 || ^8"
+    }
+}
