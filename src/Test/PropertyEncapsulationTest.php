@@ -4,124 +4,212 @@ namespace Dustin\Encapsulation\Test;
 
 use Dustin\Encapsulation\Exception\NotUnsettableException;
 use Dustin\Encapsulation\Exception\PropertyNotExistsException;
-use Dustin\Encapsulation\Exception\StaticPropertyException;
+use Dustin\Encapsulation\Exception\StaticException;
 use Dustin\Encapsulation\PropertyEncapsulation;
 use PHPUnit\Framework\TestCase;
 
-class MyEncapsulation extends PropertyEncapsulation
+class MovieNight extends PropertyEncapsulation
 {
-    protected static $fruits;
+    protected static $total = 0;
 
-    protected $foo;
+    protected static $totalFriendsCount = 0;
 
-    protected string $bar;
+    protected $drink;
 
-    protected string $hello = 'world';
+    protected string $location;
 
-    protected array $myList = [];
+    protected int $friendsCount = 0;
 
-    public function getFoo()
+    protected array $snacks = [];
+
+    protected array $movies = ['Zombieland'];
+
+    public static function getTotal()
     {
-        return $this->foo;
+        return static::$total;
     }
 
-    public function setFoo($foo)
+    public static function setTotal($total)
     {
-        $this->foo = $foo;
+        static::$total = $total;
     }
 
-    public function getBar()
+    public function getLocation()
     {
-        return $this->bar;
+        echo 'Get location';
+
+        return $this->location;
     }
 
-    public function setBar($bar)
+    public function setLocation($location)
     {
-        $this->bar = $bar;
+        echo 'Set location';
+
+        $this->location = $location;
     }
 
-    public function getHello()
+    public function getFriendsCount()
     {
-        return $this->hello;
+        echo 'Get friendsCount';
+
+        return $this->friendsCount;
     }
 
-    public function setHello($hello)
+    public function setFriendsCount($friendsCount)
     {
-        $this->hello = $hello;
+        $this->friendsCount = $friendsCount;
     }
 
-    public function getMyList()
+    public function getMovies()
     {
-        return $this->myList;
+        return $this->movies;
     }
 
-    public function setMyList($myList)
+    public function setMovies($movies)
     {
-        $this->myList = $myList;
+        $this->movies = $movies;
+    }
+
+    public function addSnacks($snack)
+    {
+        echo 'Add snacks';
+
+        $this->snacks[] = $snack;
     }
 }
 
 class PropertyEncapsulationTest extends TestCase
 {
-    public function testBasics()
+    public function testInitialization()
     {
-        $encapsulation = new MyEncapsulation(['foo' => 'foo']);
-        $encapsulation->set('bar', 'bar');
+        $encapsulation = new MovieNight(['location' => 'cinema']);
 
         $this->assertSame(
             $encapsulation->toArray(),
             [
-                'foo' => 'foo',
-                'bar' => 'bar',
-                'hello' => 'world',
-                'myList' => [],
+                'drink' => null,
+                'location' => 'cinema',
+                'friendsCount' => 0,
+                'snacks' => [],
+                'movies' => ['Zombieland'],
             ]
         );
     }
 
-    public function testPropertyType()
+    public function testSetGetAndAdd()
     {
-        $encapsulation = new MyEncapsulation();
+        $encapsulation = new MovieNight();
+
+        $encapsulation->set('drink', 'cola');
+
+        $drink = $encapsulation->get('drink');
+        $this->assertSame($drink, 'cola');
+
+        $encapsulation->add('movies', 'Resident Evil');
+        $encapsulation->addList('movies', ['Grindhouse: Planet Terror', 'Shaun of the Dead']);
+
+        $this->assertSame(
+            $encapsulation->get('movies'),
+            ['Zombieland', 'Resident Evil', 'Grindhouse: Planet Terror', 'Shaun of the Dead']
+        );
+    }
+
+    public function testSetterMethod()
+    {
+        $encapsulation = new MovieNight();
+
+        $this->expectOutputString('Set location');
+        $encapsulation->set('location', 'cinema');
+    }
+
+    public function testGetterMethod()
+    {
+        $encapsulation = new MovieNight();
+
+        $this->expectOutputString('Get friendsCount');
+
+        $encapsulation->get('friendsCount');
+    }
+
+    public function testAdderMethod()
+    {
+        $encapsulation = new MovieNight();
+
+        $this->expectOutputString('Add snacks');
+
+        $encapsulation->add('snacks', 'peanuts');
+    }
+
+    public function testSetWithWrongPropertyType()
+    {
+        $encapsulation = new MovieNight();
 
         $this->expectException(\TypeError::class);
 
-        $encapsulation->set('bar', [1234]);
+        $encapsulation->set('location', ['name' => 'cinema']);
     }
 
-    public function testMissingProperty()
+    public function testSetWithMissingProperty()
     {
-        $encapsulation = new MyEncapsulation();
+        $encapsulation = new MovieNight();
 
         $this->expectException(PropertyNotExistsException::class);
 
-        $encapsulation->set('movieList', ['Rocky', 'Rambo']);
+        $encapsulation->set('is3d', true);
     }
 
-    public function testStaticProperty()
+    public function testSetWithStaticProperty()
     {
-        $encapsulation = new MyEncapsulation();
+        $encapsulation = new MovieNight();
 
-        $this->expectException(StaticPropertyException::class);
+        $this->expectException(StaticException::class);
 
-        $encapsulation->set('fruits', ['kiwi', 'carambola']);
+        $encapsulation->set('totalFriendsCount', 2);
+    }
+
+    public function testUnsetWithMissingProperty()
+    {
+        $encapsulation = new MovieNight();
+
+        $this->expectException(PropertyNotExistsException::class);
+
+        $encapsulation->unset('missingProperty');
+    }
+
+    public function testUnsetWithStaticProperty()
+    {
+        $encapsulation = new MovieNight();
+
+        $this->expectException(StaticException::class);
+
+        $encapsulation->unset('total');
     }
 
     public function testUnsettable()
     {
-        $encapsulation = new MyEncapsulation();
+        $encapsulation = new MovieNight();
 
         $this->expectException(NotUnsettableException::class);
 
-        $encapsulation->unset('hello');
+        $encapsulation->unset('friendsCount');
+    }
+
+    public function testHas()
+    {
+        $encapsulation = new MovieNight();
+
+        $this->assertTrue($encapsulation->has('location'));
+        $this->assertFalse($encapsulation->has('theme'));
+        $this->assertFalse($encapsulation->has('total'));
     }
 
     public function testGetFields()
     {
-        $encapsulation = new MyEncapsulation();
+        $encapsulation = new MovieNight();
 
         $this->assertSame(
             $encapsulation->getFields(),
-            ['foo', 'bar', 'hello', 'myList']
+            ['drink', 'location', 'friendsCount', 'snacks', 'movies']
         );
     }
 }

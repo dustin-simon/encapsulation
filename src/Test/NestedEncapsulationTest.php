@@ -8,6 +8,13 @@ use PHPUnit\Framework\TestCase;
 
 class NestedEncapsulationTest extends TestCase
 {
+    public function testInitialization()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $encapsulation = new NestedEncapsulation([new Encapsulation()]);
+    }
+
     public function testSetValue()
     {
         $encapsulation = new NestedEncapsulation();
