@@ -84,4 +84,15 @@ class ContainerTest extends TestCase
 
         $container->add(new Encapsulation());
     }
+
+    public function testRemoveAt()
+    {
+        $container = new Container(['Iron Man', 'Captain America', 'Thor']);
+        $container->removeAt(1);
+
+        $this->assertSame(
+            $container->toArray(),
+            ['Iron Man', 'Thor']
+        );
+    }
 }
