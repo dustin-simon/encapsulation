@@ -15,7 +15,7 @@ class Container implements \Countable, \IteratorAggregate, \JsonSerializable
 
     public function toArray(): array
     {
-        return $this->elements;
+        return array_values($this->elements);
     }
 
     public function add($element): void
@@ -27,6 +27,12 @@ class Container implements \Countable, \IteratorAggregate, \JsonSerializable
     public function getAt(int $position)
     {
         return array_values($this->elements)[$position] ?? null;
+    }
+
+    public function removeAt(int $position): void
+    {
+        unset($this->elements[$position]);
+        $this->elements = array_values($this->elements);
     }
 
     public function count(): int
@@ -46,7 +52,7 @@ class Container implements \Countable, \IteratorAggregate, \JsonSerializable
 
     public function getIterator(): \Traversable
     {
-        yield from $this->elements;
+        yield from array_values($this->elements);
     }
 
     public function jsonSerialize()
