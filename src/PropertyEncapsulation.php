@@ -4,7 +4,7 @@ namespace Dustin\Encapsulation;
 
 use Dustin\Encapsulation\Exception\NotUnsettableException;
 use Dustin\Encapsulation\Exception\PropertyNotExistsException;
-use Dustin\Encapsulation\Exception\StaticPropertyException;
+use Dustin\Encapsulation\Exception\StaticException;
 
 abstract class PropertyEncapsulation extends AbstractEncapsulation
 {
@@ -14,7 +14,7 @@ abstract class PropertyEncapsulation extends AbstractEncapsulation
     }
 
     /**
-     * @throws StaticPropertyException
+     * @throws StaticException
      * @throws PropertyNotExistsException
      */
     public function set(string $field, $value): void
@@ -23,7 +23,10 @@ abstract class PropertyEncapsulation extends AbstractEncapsulation
 
         $setterMethodName = 'set'.\ucfirst($field);
 
-        if ($reflectionObject->hasMethod($setterMethodName)) {
+        if (
+            $reflectionObject->hasMethod($setterMethodName) &&
+            !$reflectionObject->getMethod($setterMethodName)->isStatic()
+        ) {
             $this->$setterMethodName($value);
 
             return;
@@ -37,7 +40,7 @@ abstract class PropertyEncapsulation extends AbstractEncapsulation
         $reflectionProperty = $reflectionObject->getProperty($field);
 
         if ($reflectionProperty->isStatic()) {
-            throw new StaticPropertyException($this, $field);
+            throw new StaticException($this, $field);
         }
 
         $reflectionProperty->setAccessible(true);
@@ -46,7 +49,7 @@ abstract class PropertyEncapsulation extends AbstractEncapsulation
 
     /**
      * @throws PropertyNotExistsException
-     * @throws StaticPropertyException
+     * @throws StaticException
      * @throws NotUnsettableException
      */
     public function unset(string $field): void
@@ -62,7 +65,7 @@ abstract class PropertyEncapsulation extends AbstractEncapsulation
         $property->setAccessible(true);
 
         if ($property->isStatic()) {
-            throw new StaticPropertyException($this, $field);
+            throw new StaticException($this, $field);
         }
 
         if (!$property->isInitialized($this)) {
@@ -77,7 +80,7 @@ abstract class PropertyEncapsulation extends AbstractEncapsulation
     }
 
     /**
-     * @throws StaticPropertyException
+     * @throws StaticException
      * @throws PropertyNotExistsException
      */
     public function get(string $field)
@@ -85,7 +88,10 @@ abstract class PropertyEncapsulation extends AbstractEncapsulation
         $reflectionObject = new \ReflectionObject($this);
         $getterMethodName = 'get'.\ucfirst($field);
 
-        if ($reflectionObject->hasMethod($getterMethodName)) {
+        if (
+            $reflectionObject->hasMethod($getterMethodName) &&
+            !$reflectionObject->getMethod($getterMethodName)->isStatic()
+        ) {
             return $this->$getterMethodName();
         }
 
@@ -97,7 +103,7 @@ abstract class PropertyEncapsulation extends AbstractEncapsulation
         $reflectionProperty = $reflectionObject->getProperty($field);
 
         if ($reflectionProperty->isStatic()) {
-            throw new StaticPropertyException($this, $field);
+            throw new StaticException($this, $field);
         }
 
         $reflectionProperty->setAccessible(true);
@@ -114,7 +120,10 @@ abstract class PropertyEncapsulation extends AbstractEncapsulation
         $reflectionObject = new \ReflectionObject($this);
         $adderMethodName = 'add'.\ucfirst($field);
 
-        if ($reflectionObject->hasMethod($adderMethodName)) {
+        if (
+            $reflectionObject->hasMethod($adderMethodName) &&
+            !$reflectionObject->getMethod($adderMethodName)->isStatic()
+        ) {
             $this->$adderMethodName($value);
 
             return;
