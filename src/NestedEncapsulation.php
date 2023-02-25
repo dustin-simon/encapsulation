@@ -5,7 +5,7 @@ namespace Dustin\Encapsulation;
 /**
  * Encapsulation class which can only hold scalar values, arrays or other NestedEncapsulations.
  */
-class NestedEncapsulation extends Encapsulation
+class NestedEncapsulation extends ArrayEncapsulation
 {
     public function set(string $field, $value): void
     {
