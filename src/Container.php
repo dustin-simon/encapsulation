@@ -29,12 +29,6 @@ class Container implements \Countable, \IteratorAggregate, \JsonSerializable
         return array_values($this->elements)[$position] ?? null;
     }
 
-    public function removeAt(int $position): void
-    {
-        unset($this->elements[$position]);
-        $this->elements = array_values($this->elements);
-    }
-
     public function count(): int
     {
         return count($this->elements);
