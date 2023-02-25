@@ -10,6 +10,9 @@ class Container implements \Countable, \IteratorAggregate, \JsonSerializable
 
     private array $elements = [];
 
+    /**
+     * @param mixed[] $elements
+     */
     public function __construct(array $elements = [])
     {
         $this->add(...$elements);
@@ -36,6 +39,9 @@ class Container implements \Countable, \IteratorAggregate, \JsonSerializable
         return new self($this->elements);
     }
 
+    /**
+     * @param mixed ...$elements
+     */
     public function add(...$elements): self
     {
         foreach ($elements as $element) {
@@ -53,6 +59,9 @@ class Container implements \Countable, \IteratorAggregate, \JsonSerializable
         return $this;
     }
 
+    /**
+     * @return mixed|null
+     */
     public function getAt(int $position)
     {
         return array_values($this->elements)[$position] ?? null;
@@ -73,6 +82,9 @@ class Container implements \Countable, \IteratorAggregate, \JsonSerializable
         return new self(array_map($callable, array_values($this->elements)));
     }
 
+    /**
+     * @return mixed|null
+     */
     public function reduce(callable $callable, $initial = null)
     {
         return array_reduce($this->elements, $callable, $initial);
@@ -103,11 +115,17 @@ class Container implements \Countable, \IteratorAggregate, \JsonSerializable
         return new self(array_values(array_unique($this->elements, $flags)));
     }
 
+    /**
+     * @return mixed|null
+     */
     public function shift()
     {
         return array_shift($this->elements);
     }
 
+    /**
+     * @param mixed ...$elements
+     */
     public function unshift(...$elements): self
     {
         array_unshift($this->elements, ...$elements);
@@ -115,6 +133,9 @@ class Container implements \Countable, \IteratorAggregate, \JsonSerializable
         return $this;
     }
 
+    /**
+     * @return mixed|null
+     */
     public function pop()
     {
         return array_pop($this->elements);
@@ -125,6 +146,9 @@ class Container implements \Countable, \IteratorAggregate, \JsonSerializable
         return new self(array_replace($this->elements, ...$arrays));
     }
 
+    /**
+     * @param mixed|null $arg
+     */
     public function walk(callable $callable, $arg = null): self
     {
         array_walk($this->elements, $callable, $arg);
