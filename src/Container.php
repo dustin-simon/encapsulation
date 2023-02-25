@@ -122,9 +122,7 @@ class Container implements \Countable, \IteratorAggregate, \JsonSerializable
 
     public function replace(...$arrays): self
     {
-        $this->elements = array_replace($this->elements, ...$arrays);
-
-        return $this;
+        return new self(array_replace($this->elements, ...$arrays));
     }
 
     public function walk(callable $callable, $arg = null): self
@@ -136,9 +134,7 @@ class Container implements \Countable, \IteratorAggregate, \JsonSerializable
 
     public function reverse()
     {
-        $this->elements = array_reverse($this->elements);
-
-        return $this;
+        return new self(array_reverse($this->elements));
     }
 
     public function search($needle, bool $strict = false)
