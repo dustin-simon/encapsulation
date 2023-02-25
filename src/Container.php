@@ -31,6 +31,11 @@ class Container implements \Countable, \IteratorAggregate, \JsonSerializable
         return array_values($this->elements);
     }
 
+    public function copy(): self
+    {
+        return new self($this->elements);
+    }
+
     public function add(...$elements): self
     {
         foreach ($elements as $element) {
