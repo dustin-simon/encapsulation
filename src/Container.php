@@ -120,7 +120,7 @@ class Container implements \Countable, \IteratorAggregate, \JsonSerializable
         return array_pop($this->elements);
     }
 
-    public function replace(...$arrays): self
+    public function replace(array ...$arrays): self
     {
         return new self(array_replace($this->elements, ...$arrays));
     }
@@ -132,12 +132,12 @@ class Container implements \Countable, \IteratorAggregate, \JsonSerializable
         return $this;
     }
 
-    public function reverse()
+    public function reverse(): self
     {
         return new self(array_reverse($this->elements));
     }
 
-    public function search($needle, bool $strict = false)
+    public function search($needle, bool $strict = false): ?int
     {
         return array_search($needle, array_values($this->elements), $strict);
     }
