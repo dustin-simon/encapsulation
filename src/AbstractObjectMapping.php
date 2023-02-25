@@ -18,7 +18,7 @@ abstract class AbstractObjectMapping extends ArrayEncapsulation
         $class = $this->getType();
 
         if (!$value instanceof $class) {
-            throw new \InvalidArgumentException(sprintf('Value must be %s. %s given'), $class, is_object($value) ? get_class($object) : gettype($object));
+            throw new \InvalidArgumentException(sprintf('Value must be %s. %s given', $class, is_object($value) ? get_class($value) : gettype($value)));
         }
     }
 }
