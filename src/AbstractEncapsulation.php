@@ -8,6 +8,8 @@ abstract class AbstractEncapsulation implements EncapsulationInterface
 
     use ArrayAccessTrait;
 
+    abstract public function __construct(array $data = []);
+
     public function getIterator(): \Traversable
     {
         yield from $this->toArray();
