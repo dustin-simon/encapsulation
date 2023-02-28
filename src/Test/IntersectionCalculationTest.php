@@ -116,9 +116,13 @@ class IntersectionCalculationTest extends TestCase
                 'key1' => 'value1',
                 'key2' => 'value2',
             ],
-            'nested2' => new NestedEncapsulation([
+            'nested2' => new Encapsulation([
                 'key1' => 'value1',
                 'key2' => 'value2',
+                'key3' => new Encapsulation([
+                    'key1' => 'value1',
+                    'key2' => 'value2',
+                ]),
             ]),
             'nested3' => new Encapsulation([
                 'key1' => 'value1',
@@ -137,6 +141,9 @@ class IntersectionCalculationTest extends TestCase
             ],
             'nested2' => [
                 'key1' => 'value1',
+                'key3' => [
+                    'key1' => 'value1',
+                ],
             ],
             'nested3' => [],
             'nullValue' => null,
@@ -156,6 +163,9 @@ class IntersectionCalculationTest extends TestCase
                 ]),
                 'nested2' => new NestedEncapsulation([
                     'key2' => 'value2',
+                    'key3' => new NestedEncapsulation([
+                        'key2' => 'value2',
+                    ]),
                 ]),
                 'nested3' => new NestedEncapsulation([
                     'key1' => 'value1',
