@@ -31,6 +31,7 @@ class IntersectionCalculation
         $intersectionFields = static::getFieldIntersection($a, $b);
         $intersection = new NestedEncapsulation();
 
+        /** @var string $field */
         foreach ($intersectionFields as $field) {
             $value = $a->get($field);
             $compareValue = $b->get($field);
@@ -71,6 +72,7 @@ class IntersectionCalculation
     {
         $difference = new NestedEncapsulation();
 
+        /** @var string $field */
         foreach ($a->getFields() as $field) {
             $value = $a->get($field);
 
