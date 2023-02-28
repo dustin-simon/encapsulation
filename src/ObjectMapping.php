@@ -13,7 +13,7 @@ class ObjectMapping extends AbstractObjectMapping
 
     public static function create(string $class): self
     {
-        $mapping = (new \ReflectionClass(self::class))->newInstanceWithoutConstructor();
+        $mapping = (new \ReflectionClass(static::class))->newInstanceWithoutConstructor();
         $mapping->objectClass = $class;
 
         return $mapping;

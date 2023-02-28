@@ -28,18 +28,18 @@ class IntersectionCalculation
 
     public static function getIntersection(AbstractEncapsulation $a, AbstractEncapsulation $b): EncapsulationInterface
     {
-        $intersectionFields = self::getFieldIntersection($a, $b);
+        $intersectionFields = static::getFieldIntersection($a, $b);
         $intersection = new NestedEncapsulation();
 
         foreach ($intersectionFields as $field) {
             $value = $a->get($field);
             $compareValue = $b->get($field);
 
-            if (!self::isComparable($value)) {
+            if (!static::isComparable($value)) {
                 throw new UncomparableException($value);
             }
 
-            if (!self::isComparable($compareValue)) {
+            if (!static::isComparable($compareValue)) {
                 throw new UncomparableException($compareValue);
             }
 
@@ -57,7 +57,7 @@ class IntersectionCalculation
 
             $value = is_array($value) ? new Encapsulation($value) : $value;
             $compareValue = is_array($compareValue) ? new Encapsulation($compareValue) : $compareValue;
-            $intersectedData = self::getIntersection($value, $compareValue);
+            $intersectedData = static::getIntersection($value, $compareValue);
 
             if (!empty($intersectedData->toArray())) {
                 $intersection->set($field, $intersectedData);
@@ -74,7 +74,7 @@ class IntersectionCalculation
         foreach ($a->getFields() as $field) {
             $value = $a->get($field);
 
-            if (!self::isComparable($value)) {
+            if (!static::isComparable($value)) {
                 throw new UncomparableException($value);
             }
 
@@ -91,13 +91,13 @@ class IntersectionCalculation
 
                 // $value must be array
                 // Creating the difference from an empty object converts array into Encapsulations and clones objects
-                $difference->set($field, self::getDifference(new Encapsulation($value), new Encapsulation()));
+                $difference->set($field, static::getDifference(new Encapsulation($value), new Encapsulation()));
                 continue;
             }
 
             $compareValue = $b->get($field);
 
-            if (!self::isComparable($compareValue)) {
+            if (!static::isComparable($compareValue)) {
                 throw new UncomparableException($compareValue);
             }
 
@@ -111,7 +111,7 @@ class IntersectionCalculation
 
             $value = is_array($value) ? new Encapsulation($value) : $value;
             $compareData = is_array($compareValue) || $compareValue === null ? new Encapsulation((array) $compareValue) : $compareValue;
-            $differencedData = self::getDifference($value, $compareData);
+            $differencedData = static::getDifference($value, $compareData);
 
             if (!empty($differencedData->toArray()) || $compareValue === null) {
                 $difference->set($field, $differencedData);
