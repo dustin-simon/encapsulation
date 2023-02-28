@@ -20,6 +20,26 @@ abstract class AbstractEncapsulation implements EncapsulationInterface
         return empty($this->toArray());
     }
 
+    public function getFieldIntersection(EncapsulationInterface $encapsulation): array
+    {
+        return IntersectionCalculation::getFieldIntersection($this, $encapsulation);
+    }
+
+    public function getFieldDifference(EncapsulationInterface $encapsulation): array
+    {
+        return IntersectionCalculation::getFieldDifference($this, $encapsulation);
+    }
+
+    public function getIntersection(EncapsulationInterface $encapsulation): EncapsulationInterface
+    {
+        return IntersectionCalculation::getIntersection($this, $encapsulation);
+    }
+
+    public function getDifference(EncapsulationInterface $encapsulation): EncapsulationInterface
+    {
+        return IntersectionCalculation::getDifference($this, $encapsulation);
+    }
+
     public function __clone()
     {
         foreach ($this->toArray() as $field => $value) {
