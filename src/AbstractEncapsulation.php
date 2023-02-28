@@ -8,6 +8,8 @@ abstract class AbstractEncapsulation implements EncapsulationInterface
 
     use ArrayAccessTrait;
 
+    abstract public function __construct(array $data = []);
+
     public function getIterator(): \Traversable
     {
         yield from $this->toArray();
@@ -16,6 +18,26 @@ abstract class AbstractEncapsulation implements EncapsulationInterface
     public function isEmpty(): bool
     {
         return empty($this->toArray());
+    }
+
+    public function getFieldIntersection(EncapsulationInterface $encapsulation): array
+    {
+        return IntersectionCalculation::getFieldIntersection($this, $encapsulation);
+    }
+
+    public function getFieldDifference(EncapsulationInterface $encapsulation): array
+    {
+        return IntersectionCalculation::getFieldDifference($this, $encapsulation);
+    }
+
+    public function getIntersection(EncapsulationInterface $encapsulation): EncapsulationInterface
+    {
+        return IntersectionCalculation::getIntersection($this, $encapsulation);
+    }
+
+    public function getDifference(EncapsulationInterface $encapsulation): EncapsulationInterface
+    {
+        return IntersectionCalculation::getDifference($this, $encapsulation);
     }
 
     public function __clone()

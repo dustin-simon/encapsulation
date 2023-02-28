@@ -6,9 +6,17 @@ class ObjectMapping extends AbstractObjectMapping
 {
     private $objectClass = null;
 
-    public function __construct(string $class)
+    public function __construct(array $data = [])
     {
-        $this->objectClass = $class;
+        throw new \RuntimeException('ObjectMappings cannot be created via constructor. Use ObjectMapping::create instead');
+    }
+
+    public static function create(string $class): self
+    {
+        $mapping = (new \ReflectionClass(static::class))->newInstanceWithoutConstructor();
+        $mapping->objectClass = $class;
+
+        return $mapping;
     }
 
     public function __serialize(): array

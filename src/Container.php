@@ -20,7 +20,7 @@ class Container implements \Countable, \IteratorAggregate, \JsonSerializable
 
     public static function merge(self ...$containers): self
     {
-        $new = new self();
+        $new = new static();
 
         foreach ($containers as $container) {
             $new->add(...$container->toArray());
@@ -36,7 +36,7 @@ class Container implements \Countable, \IteratorAggregate, \JsonSerializable
 
     public function copy(): self
     {
-        return new self($this->elements);
+        return new static($this->elements);
     }
 
     /**
@@ -79,7 +79,7 @@ class Container implements \Countable, \IteratorAggregate, \JsonSerializable
 
     public function map(callable $callable): self
     {
-        return new self(array_map($callable, array_values($this->elements)));
+        return new static(array_map($callable, array_values($this->elements)));
     }
 
     /**
@@ -94,13 +94,13 @@ class Container implements \Countable, \IteratorAggregate, \JsonSerializable
     {
         // callback param is only nullable in PHP8
         return $callable === null ?
-            new self(array_filter($this->elements)) :
-            new self(array_filter($this->elements, $callable));
+            new static(array_filter($this->elements)) :
+            new static(array_filter($this->elements, $callable));
     }
 
     public function slice(int $offset, ?int $length = null): self
     {
-        return new self(array_slice(array_values($this->elements), $offset, $length));
+        return new static(array_slice(array_values($this->elements), $offset, $length));
     }
 
     public function splice(int $offset, ?int $length = null, $replacement = []): self
@@ -112,7 +112,7 @@ class Container implements \Countable, \IteratorAggregate, \JsonSerializable
 
     public function unique(int $flags = SORT_STRING): self
     {
-        return new self(array_values(array_unique($this->elements, $flags)));
+        return new static(array_values(array_unique($this->elements, $flags)));
     }
 
     /**
@@ -143,7 +143,7 @@ class Container implements \Countable, \IteratorAggregate, \JsonSerializable
 
     public function replace(array ...$arrays): self
     {
-        return new self(array_replace($this->elements, ...$arrays));
+        return new static(array_replace($this->elements, ...$arrays));
     }
 
     /**
@@ -158,7 +158,7 @@ class Container implements \Countable, \IteratorAggregate, \JsonSerializable
 
     public function reverse(): self
     {
-        return new self(array_reverse($this->elements));
+        return new static(array_reverse($this->elements));
     }
 
     public function search($needle, bool $strict = false): ?int
@@ -190,7 +190,7 @@ class Container implements \Countable, \IteratorAggregate, \JsonSerializable
     public function chunk(int $length): array
     {
         return array_map(function (array $chunk) {
-            return new self($chunk);
+            return new static($chunk);
         }, array_chunk($this->elements, $length));
     }
 

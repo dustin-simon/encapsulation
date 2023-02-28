@@ -25,17 +25,24 @@ class ObjectMappingTest extends TestCase
 
         $this->expectException(\InvalidArgumentException::class);
 
-        $mapping->set('third', new ObjectMapping('test'));
+        $mapping->set('third', new NestedEncapsulation());
     }
 
     public function testObjectMap()
     {
-        $map = new ObjectMapping(Encapsulation::class);
+        $map = ObjectMapping::create(Encapsulation::class);
 
         $map->set('first', new Encapsulation());
 
         $this->expectException(\InvalidArgumentException::class);
 
         $map->set('second', new NestedEncapsulation());
+    }
+
+    public function testObjectMapConstructor()
+    {
+        $this->expectException(\RuntimeException::class);
+
+        $map = new ObjectMapping();
     }
 }
