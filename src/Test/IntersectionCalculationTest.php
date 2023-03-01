@@ -193,4 +193,32 @@ class IntersectionCalculationTest extends TestCase
 
         $a->getIntersection($b);
     }
+
+    public function testCollectionMissingFieldDifference()
+    {
+        $a = new Encapsulation([
+            'foo' => 'foo',
+            'bar' => 'bar',
+            'test' => new Encapsulation([
+                'key1' => 'value1',
+            ]),
+        ]);
+
+        $b = new Encapsulation([
+            'foo' => 'foo',
+            'hello' => 'world',
+        ]);
+
+        $difference = $a->getDifference($b);
+
+        $this->assertEquals(
+            $difference,
+            new NestedEncapsulation([
+                'bar' => 'bar',
+                'test' => new NestedEncapsulation([
+                    'key1' => 'value1',
+                ]),
+            ])
+        );
+    }
 }
