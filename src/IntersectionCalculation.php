@@ -86,14 +86,8 @@ class IntersectionCalculation
                     continue;
                 }
 
-                if (\is_object($value)) {
-                    $difference->set($field, clone $value);
-                    continue;
-                }
-
-                // $value must be array
-                // Creating the difference from an empty object converts array into Encapsulations and clones objects
-                $difference->set($field, static::getDifference(new Encapsulation($value), new Encapsulation()));
+                $value = is_array($value) ? new Encapsulation($value) : $value;
+                $difference->set($field, static::getDifference($value, new Encapsulation()));
                 continue;
             }
 
