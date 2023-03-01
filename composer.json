@@ -1,13 +1,14 @@
 {
     "name": "dustin/encapsulation",
     "type": "library",
-    "version": "1.1.0",
-    "description": "A simple way accommodate, exchange and structorize data with objects",
+    "version": "1.1.1",
+    "description": "A simple way to accommodate, exchange and structorize data with objects",
     "keywords": [
         "object",
         "encapsulation",
         "data-exchange",
-        "array"
+        "array",
+        "intersection calculation"
     ],
     "homepage": "https://dustinsimon.gitbook.io/encapsulation",
     "license": "MIT",
