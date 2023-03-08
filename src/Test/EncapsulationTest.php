@@ -2,6 +2,7 @@
 
 namespace Dustin\Encapsulation\Test;
 
+use Dustin\Encapsulation\Container;
 use Dustin\Encapsulation\Encapsulation;
 use Dustin\Encapsulation\Exception\NotAllowedFieldException;
 use Dustin\Encapsulation\Exception\NotAnArrayException;
@@ -116,6 +117,21 @@ class EncapsulationTest extends TestCase
         $this->expectException(NotAnArrayException::class);
 
         $encapsulation->add('movie', 'Predator');
+    }
+
+    public function testAddToContainer()
+    {
+        $encapsulation = new Encapsulation([
+            'list' => new Container(),
+            'emptyList' => null,
+        ]);
+
+        $encapsulation->add('list', 'foo');
+
+        $this->assertEquals(
+            $encapsulation->get('list'),
+            new Container(['foo'])
+        );
     }
 
     public function testAllowedFields()
