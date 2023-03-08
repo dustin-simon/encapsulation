@@ -44,6 +44,14 @@ class ImmutableEncapsulationTest extends TestCase
         $encapsulation->add('list', 'foo');
     }
 
+    public function testUnset()
+    {
+        $encapsulation = new ImmutableEncapsulation(['foo' => 'bar']);
+
+        $this->expectException(ImmutableException::class);
+        $encapsulation->unset('foo');
+    }
+
     public function testIsMutable()
     {
         $mutableEncapsulation = new Encapsulation();

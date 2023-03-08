@@ -23,6 +23,11 @@ trait ImmutableTrait
         throw new ImmutableException($this);
     }
 
+    public function unset(string $field): void
+    {
+        throw new ImmutableException($this);
+    }
+
     public function isMutable(): bool
     {
         return false;
