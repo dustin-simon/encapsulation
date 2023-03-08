@@ -2,11 +2,11 @@
 
 namespace Dustin\Encapsulation\Test;
 
+use Dustin\Encapsulation\Container;
 use Dustin\Encapsulation\Encapsulation;
 use Dustin\Encapsulation\Exception\ImmutableException;
 use Dustin\Encapsulation\ImmutableEncapsulation;
 use Dustin\Encapsulation\ImmutableTrait;
-use Dustin\Encapsulation\MutableInterface;
 use Dustin\Encapsulation\PropertyEncapsulation;
 use PHPUnit\Framework\TestCase;
 
@@ -35,19 +35,23 @@ class ImmutableEncapsulationTest extends TestCase
         $encapsulation->set('foo', 'barBar');
     }
 
-    public function testImmutableInterface()
+    public function testAdd()
+    {
+        $encapsulation = new ImmutableEncapsulation(['list' => new Container()]);
+
+        $this->expectException(ImmutableException::class);
+
+        $encapsulation->add('list', 'foo');
+    }
+
+    public function testIsMutable()
     {
         $mutableEncapsulation = new Encapsulation();
         $immutableEncapsulation1 = new ImmutableEncapsulation();
         $immutableEncapsulation2 = new MyEncapsulation();
 
-        $this->assertTrue($mutableEncapsulation instanceof MutableInterface);
         $this->assertTrue($mutableEncapsulation->isMutable());
-
-        $this->assertTrue($immutableEncapsulation1 instanceof MutableInterface);
         $this->assertFalse($immutableEncapsulation1->isMutable());
-
-        $this->assertTrue($immutableEncapsulation2 instanceof MutableInterface);
         $this->assertFalse($immutableEncapsulation2->isMutable());
     }
 }
