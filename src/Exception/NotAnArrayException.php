@@ -17,7 +17,7 @@ class NotAnArrayException extends EncapsulationException
 
         parent::__construct(
             $encapsulation,
-            \sprintf("Field '%s' must be array to add values to it.", $field)
+            \sprintf("Field '%s' must be array or container to add values to it.", $field)
         );
     }
 

@@ -20,6 +20,11 @@ abstract class AbstractEncapsulation implements EncapsulationInterface
         return empty($this->toArray());
     }
 
+    public function isMutable(): bool
+    {
+        return true;
+    }
+
     public function getFieldIntersection(EncapsulationInterface $encapsulation): array
     {
         return IntersectionCalculation::getFieldIntersection($this, $encapsulation);
