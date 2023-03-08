@@ -18,6 +18,11 @@ trait ImmutableTrait
         throw new ImmutableException($this);
     }
 
+    public function add(string $field, $value): void
+    {
+        throw new ImmutableException($this);
+    }
+
     public function isMutable(): bool
     {
         return false;
