@@ -3,7 +3,7 @@
 namespace Dustin\Encapsulation\Test;
 
 use Dustin\Encapsulation\Encapsulation;
-use Dustin\Encapsulation\Exception\EncapsulationImmutableException;
+use Dustin\Encapsulation\Exception\ImmutableException;
 use Dustin\Encapsulation\ImmutableEncapsulation;
 use Dustin\Encapsulation\ImmutableTrait;
 use Dustin\Encapsulation\MutableInterface;
@@ -22,7 +22,7 @@ class ImmutableEncapsulationTest extends TestCase
     {
         $encapsulation = new ImmutableEncapsulation(['foo' => 'bar']);
 
-        $this->expectException(EncapsulationImmutableException::class);
+        $this->expectException(ImmutableException::class);
         $encapsulation->set('hello', 'world');
     }
 
@@ -30,7 +30,7 @@ class ImmutableEncapsulationTest extends TestCase
     {
         $encapsulation = new MyEncapsulation(['foo' => 'bar']);
 
-        $this->expectException(EncapsulationImmutableException::class);
+        $this->expectException(ImmutableException::class);
 
         $encapsulation->set('foo', 'barBar');
     }
