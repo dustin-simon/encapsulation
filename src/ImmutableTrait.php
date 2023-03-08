@@ -2,7 +2,7 @@
 
 namespace Dustin\Encapsulation;
 
-use Dustin\Encapsulation\Exception\EncapsulationImmutableException;
+use Dustin\Encapsulation\Exception\ImmutableException;
 
 trait ImmutableTrait
 {
@@ -15,7 +15,7 @@ trait ImmutableTrait
 
     public function set(string $field, $value): void
     {
-        throw new EncapsulationImmutableException($this);
+        throw new ImmutableException($this);
     }
 
     public function isMutable(): bool
