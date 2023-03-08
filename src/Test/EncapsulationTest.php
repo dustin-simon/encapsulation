@@ -207,6 +207,6 @@ class EncapsulationTest extends TestCase
         $json = json_encode($encapsulation);
         $data = json_decode($json, true);
 
-        $this->assertSame($encapsulation->toArray(), ['foo' => 'foo', 'bar' => 'bar']);
+        $this->assertSame($data, ['foo' => 'foo', 'bar' => 'bar']);
     }
 }
