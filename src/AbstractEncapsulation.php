@@ -2,7 +2,7 @@
 
 namespace Dustin\Encapsulation;
 
-abstract class AbstractEncapsulation implements EncapsulationInterface
+abstract class AbstractEncapsulation implements EncapsulationInterface, MutableInterface
 {
     use EncapsulationTrait;
 
@@ -18,6 +18,11 @@ abstract class AbstractEncapsulation implements EncapsulationInterface
     public function isEmpty(): bool
     {
         return empty($this->toArray());
+    }
+
+    public function isMutable(): bool
+    {
+        return true;
     }
 
     public function getFieldIntersection(EncapsulationInterface $encapsulation): array
