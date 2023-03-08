@@ -2,7 +2,7 @@
 
 namespace Dustin\Encapsulation;
 
-abstract class AbstractEncapsulation implements EncapsulationInterface, MutableInterface
+abstract class AbstractEncapsulation implements EncapsulationInterface
 {
     use EncapsulationTrait;
 
