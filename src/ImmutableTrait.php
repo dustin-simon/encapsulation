@@ -17,4 +17,9 @@ trait ImmutableTrait
     {
         throw new EncapsulationImmutableException($this);
     }
+
+    public function isMutable(): bool
+    {
+        return false;
+    }
 }
