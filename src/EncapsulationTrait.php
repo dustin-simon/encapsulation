@@ -42,6 +42,10 @@ trait EncapsulationTrait
             $this->set($field, $item);
 
             return;
+        } elseif ($item instanceof Container) {
+            $item->add($value);
+
+            return;
         }
 
         throw new NotAnArrayException($this, $field);
