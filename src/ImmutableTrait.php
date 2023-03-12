@@ -32,4 +32,13 @@ trait ImmutableTrait
     {
         return false;
     }
+
+    public function __clone()
+    {
+        foreach ($this->toArray() as $field => $value) {
+            if (\is_object($value)) {
+                parent::set($field, clone $value);
+            }
+        }
+    }
 }
