@@ -27,7 +27,12 @@ class ImmutableContainer extends Container
         throw new ImmutableException($this);
     }
 
-    public function clear(): self
+    public function clear(): Container
+    {
+        throw new ImmutableException($this);
+    }
+
+    public function splice(int $offset, ?int $length = null, $replacement = []): Container
     {
         throw new ImmutableException($this);
     }
