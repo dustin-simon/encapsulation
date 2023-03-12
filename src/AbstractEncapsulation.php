@@ -35,12 +35,12 @@ abstract class AbstractEncapsulation implements EncapsulationInterface
         return IntersectionCalculation::getFieldDifference($this, $encapsulation);
     }
 
-    public function getIntersection(EncapsulationInterface $encapsulation): EncapsulationInterface
+    public function getIntersection(self $encapsulation): EncapsulationInterface
     {
         return IntersectionCalculation::getIntersection($this, $encapsulation);
     }
 
-    public function getDifference(EncapsulationInterface $encapsulation): EncapsulationInterface
+    public function getDifference(self $encapsulation): EncapsulationInterface
     {
         return IntersectionCalculation::getDifference($this, $encapsulation);
     }
