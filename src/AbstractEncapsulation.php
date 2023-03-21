@@ -8,12 +8,11 @@ abstract class AbstractEncapsulation implements EncapsulationInterface
 
     use ArrayAccessTrait;
 
-    abstract public function __construct(array $data = []);
+    use IteratorTrait;
 
-    public function getIterator(): \Traversable
-    {
-        yield from $this->toArray();
-    }
+    use JsonSerializableTrait;
+
+    abstract public function __construct(array $data = []);
 
     public function isEmpty(): bool
     {
