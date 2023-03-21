@@ -13,6 +13,7 @@ abstract class AbstractEncapsulation implements EncapsulationInterface
 
     use ArrayAccessTrait;
 
+    use IteratorTrait;
     /**
      * Optionally initializes the encapsulation with data.
      *
@@ -22,13 +23,7 @@ abstract class AbstractEncapsulation implements EncapsulationInterface
      */
     abstract public function __construct(array $data = []);
 
-    /**
-     * @internal
-     */
-    public function getIterator(): \Traversable
-    {
-        yield from $this->toArray();
-    }
+    use JsonSerializableTrait;
 
     /**
      * Checks if an encapsulation is empty.

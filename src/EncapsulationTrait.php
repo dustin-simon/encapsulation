@@ -69,14 +69,6 @@ trait EncapsulationTrait
     /**
      * @ignore
      */
-    public function jsonSerialize()
-    {
-        return $this->toArray();
-    }
-
-    /**
-     * @ignore
-     */
     public function __serialize(): array
     {
         return array_map('serialize', $this->toArray());

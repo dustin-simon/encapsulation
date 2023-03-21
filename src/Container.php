@@ -7,6 +7,10 @@ namespace Dustin\Encapsulation;
  */
 class Container implements \Countable, \IteratorAggregate, \JsonSerializable
 {
+    use IteratorTrait;
+
+    use JsonSerializableTrait;
+
     public const ASCENDING = true;
 
     public const DESCENDING = false;
@@ -335,22 +339,6 @@ class Container implements \Countable, \IteratorAggregate, \JsonSerializable
         return array_map(function (array $chunk) {
             return new static($chunk);
         }, array_chunk($this->elements, $length));
-    }
-
-    /**
-     * @ignore
-     */
-    public function getIterator(): \Traversable
-    {
-        yield from $this->elements;
-    }
-
-    /**
-     * @ignore
-     */
-    public function jsonSerialize()
-    {
-        return array_values($this->elements);
     }
 
     /**
