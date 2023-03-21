@@ -4,8 +4,16 @@ namespace Dustin\Encapsulation;
 
 use Dustin\Encapsulation\Exception\UncomparableException;
 
+/**
+ * Calculates intersections and differences between two encapsulations.
+ */
 class IntersectionCalculation
 {
+    /**
+     * Returns all fields which both encapsulations have in common.
+     *
+     * @return string[] An array holding the common fields
+     */
     public static function getFieldIntersection(EncapsulationInterface $a, EncapsulationInterface $b): array
     {
         return array_values(
@@ -16,6 +24,11 @@ class IntersectionCalculation
         );
     }
 
+    /**
+     * Returns all fields which differ in $a from $b.
+     *
+     * @return string[] An array holding all fields which appear in $a but not in $b
+     */
     public static function getFieldDifference(EncapsulationInterface $a, EncapsulationInterface $b): array
     {
         return array_values(
@@ -26,6 +39,17 @@ class IntersectionCalculation
         );
     }
 
+    /**
+     * Creates the intersection between two encapsulations.
+     *
+     * Creates a new encapsulation representing the intersection between two encapsulations.
+     * Intersections will be created in-depth.
+     * No distinction is made between stored arrays and encapsulations. Both types will be compared together and result in a new encapsulation holding the intersection.
+     *
+     * @return EncapsulationInterface An encapsulation representing the in-depth intersection between $a and $b
+     *
+     * @throws UncomparableException Thrown if a value is not supported for comparison (Not an encapsulation)
+     */
     public static function getIntersection(AbstractEncapsulation $a, AbstractEncapsulation $b): EncapsulationInterface
     {
         $intersectionFields = static::getFieldIntersection($a, $b);
@@ -68,6 +92,17 @@ class IntersectionCalculation
         return $intersection;
     }
 
+    /**
+     * Creates the difference of an encapsulation compared to another one.
+     *
+     * Creates a new encapsulation representing all data from the first encapsulation which differ from the second one.
+     * Differences will be in-depth.
+     * No distinction is made between arrays and encapsulations. Both types will be compared together and result in a new encapsulation holding the difference.
+     *
+     * @return EncapsulationInterface An encapsulation representing the difference from $a to $b
+     *
+     * @throws UncomparableException Thrown if a value is not supported for comparison (Not an encapsulation)
+     */
     public static function getDifference(AbstractEncapsulation $a, AbstractEncapsulation $b): EncapsulationInterface
     {
         $difference = new NestedEncapsulation();
@@ -117,6 +152,13 @@ class IntersectionCalculation
         return $difference;
     }
 
+    /**
+     * Returns wether a value is comparable.
+     *
+     * Comparable values are scalar values, arrays, null and objects beeing instance of {@see} AbstractEncapsulation.
+     *
+     * @return bool False if the value is a resource or an object and not instance of {@see} AbstractEncapsulation. True otherwise.
+     */
     public static function isComparable($value): bool
     {
         return !(

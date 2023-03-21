@@ -2,20 +2,29 @@
 
 namespace Dustin\Encapsulation;
 
+/**
+ * Provides implementation of \ArrayAccess methods for encapsulations.
+ */
 trait ArrayAccessTrait
 {
+    /**
+     * @ignore
+     */
     public function offsetExists($offset): bool
     {
         return $this->has(\strval($offset));
     }
 
+    /**
+     * @ignore
+     */
     public function offsetGet($offset)
     {
         return $this->get(\strval($offset));
     }
 
     /**
-     * @throws \RuntimeException
+     * @ignore
      */
     public function offsetSet($offset, $value): void
     {
@@ -26,6 +35,9 @@ trait ArrayAccessTrait
         $this->set(\strval($offset), $value);
     }
 
+    /**
+     * @ignore
+     */
     public function offsetUnset($offset): void
     {
         $this->unset(\strval($offset));
