@@ -63,11 +63,6 @@ trait EncapsulationTrait
         return $this->getList($this->getFields());
     }
 
-    public function jsonSerialize()
-    {
-        return $this->toArray();
-    }
-
     public function __serialize(): array
     {
         return array_map('serialize', $this->toArray());
