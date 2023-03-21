@@ -4,6 +4,9 @@ namespace Dustin\Encapsulation;
 
 use Dustin\Encapsulation\Exception\NotAnArrayException;
 
+/**
+ * Provides basic method implementations for encapsulations.
+ */
 trait EncapsulationTrait
 {
     public function setList(array $data): void
@@ -25,7 +28,7 @@ trait EncapsulationTrait
     }
 
     /**
-     * @throws NotAnArrayException
+     * @throws NotAnArrayException Thrown if the stored value behind the field is not an array an not a {@see} Container
      */
     public function add(string $field, $value): void
     {
@@ -63,16 +66,17 @@ trait EncapsulationTrait
         return $this->getList($this->getFields());
     }
 
-    public function jsonSerialize()
-    {
-        return $this->toArray();
-    }
-
+    /**
+     * @ignore
+     */
     public function __serialize(): array
     {
         return array_map('serialize', $this->toArray());
     }
 
+    /**
+     * @ignore
+     */
     public function __unserialize(array $data): void
     {
         $this->setList(array_map('unserialize', $data));
