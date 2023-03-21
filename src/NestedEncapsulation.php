@@ -3,10 +3,16 @@
 namespace Dustin\Encapsulation;
 
 /**
- * Encapsulation class which can only hold scalar values, arrays or other NestedEncapsulations.
+ * An {@see} ArrayEncapsulation which can only hold scalar values, arrays or other NestedEncapsulations.
+ *
+ * Adding a value other than a scalar, an array, null or another NestedEncapsulation will throw an exception.
+ * Inner array values are also not allowed to hold not-supported values
  */
 class NestedEncapsulation extends ArrayEncapsulation
 {
+    /**
+     * @throws \InvalidArgumentException
+     */
     public function set(string $field, $value): void
     {
         $this->validate($value);

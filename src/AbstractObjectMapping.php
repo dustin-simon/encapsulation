@@ -2,10 +2,21 @@
 
 namespace Dustin\Encapsulation;
 
+/**
+ * Represents a key-based map of objects of a certain class.
+ */
 abstract class AbstractObjectMapping extends ArrayEncapsulation
 {
+    /**
+     * Must return the class name.
+     *
+     * Each object stored in this mapping needs to be instance of the given class.
+     */
     abstract protected function getType(): string;
 
+    /**
+     * @throws \InvalidArgumentException
+     */
     public function set(string $field, $value): void
     {
         $this->validateType($value);
