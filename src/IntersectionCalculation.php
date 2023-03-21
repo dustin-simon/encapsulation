@@ -68,7 +68,7 @@ class IntersectionCalculation
         return $intersection;
     }
 
-    public function getDifference(AbstractEncapsulation $a, AbstractEncapsulation $b): EncapsulationInterface
+    public static function getDifference(AbstractEncapsulation $a, AbstractEncapsulation $b): EncapsulationInterface
     {
         $difference = new NestedEncapsulation();
 
