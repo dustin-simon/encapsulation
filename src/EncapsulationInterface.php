@@ -115,14 +115,14 @@ interface EncapsulationInterface extends \ArrayAccess, \IteratorAggregate, \Json
      *
      * Returns an associative array holding all data with their field names as array key.
      *
-     * @return array All data of an encapsulation
+     * @return array All data of the encapsulation
      */
     public function toArray(): array;
 
     /**
      * Returns a list with all existing fields.
      *
-     * @return string[] A list of string representing all available fields
+     * @return string[] A list of strings representing all available fields
      */
     public function getFields(): array;
 }

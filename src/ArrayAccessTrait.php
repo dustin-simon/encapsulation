@@ -3,7 +3,7 @@
 namespace Dustin\Encapsulation;
 
 /**
- * Provides implementation of \ArrayAccess methods for encapsulations.
+ * Provides implementation of {@see} \ArrayAccess methods for encapsulations.
  */
 trait ArrayAccessTrait
 {

@@ -6,6 +6,8 @@ use Dustin\Encapsulation\Exception\ImmutableException;
 
 /**
  * A container which cannot be changed after initialization.
+ *
+ * Elements cannot be removed nor added but sorted.
  */
 class ImmutableContainer extends Container
 {

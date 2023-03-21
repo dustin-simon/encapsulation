@@ -14,6 +14,9 @@ abstract class AbstractEncapsulation implements EncapsulationInterface
     use ArrayAccessTrait;
 
     use IteratorTrait;
+
+    use JsonSerializableTrait;
+
     /**
      * Optionally initializes the encapsulation with data.
      *
@@ -23,10 +26,8 @@ abstract class AbstractEncapsulation implements EncapsulationInterface
      */
     abstract public function __construct(array $data = []);
 
-    use JsonSerializableTrait;
-
     /**
-     * Checks if an encapsulation is empty.
+     * Checks if the encapsulation is empty.
      *
      * @return bool Wether the encapsulation has data or not
      */
@@ -36,7 +37,7 @@ abstract class AbstractEncapsulation implements EncapsulationInterface
     }
 
     /**
-     * Returns true of false wether the data of an encapsulation can be changed.
+     * Returns true of false wether the data of the encapsulation can be changed.
      */
     public function isMutable(): bool
     {
@@ -56,7 +57,7 @@ abstract class AbstractEncapsulation implements EncapsulationInterface
     }
 
     /**
-     * Returns a list of all fields which are not available in $encapsulation.
+     * Returns a list of all fields from the encapsulation which are not available in the given one.
      *
      * @see IntersectionCalculation::getFieldDifference
      *
@@ -78,7 +79,7 @@ abstract class AbstractEncapsulation implements EncapsulationInterface
     }
 
     /**
-     * Returns a new encapsulation representing all data which differ from $encapsulation.
+     * Returns a new encapsulation representing all data which differ from the given encapsulation.
      *
      * @see IntersectionCalculation::getDifference
      */

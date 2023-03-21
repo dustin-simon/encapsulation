@@ -28,7 +28,9 @@ class Container implements \Countable, \IteratorAggregate, \JsonSerializable
     }
 
     /**
-     * Takes all elements from several containers and merges them into a new container.
+     * Takes all elements from several containers and merges them into a new one.
+     *
+     * @return self a new Container instance holding all elements from the given containers
      */
     public static function merge(self ...$containers): self
     {

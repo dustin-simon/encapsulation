@@ -6,7 +6,7 @@ namespace Dustin\Encapsulation;
  * An {@see} ArrayEncapsulation which can only hold scalar values, arrays or other NestedEncapsulations.
  *
  * Adding a value other than a scalar, an array, null or another NestedEncapsulation will throw an exception.
- * Array values are also not allowed to hold not-supported values
+ * Inner array values are also not allowed to hold not-supported values
  */
 class NestedEncapsulation extends ArrayEncapsulation
 {
