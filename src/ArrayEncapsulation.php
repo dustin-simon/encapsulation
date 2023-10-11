@@ -19,7 +19,7 @@ abstract class ArrayEncapsulation extends AbstractEncapsulation
     /**
      * @throws NotAllowedFieldException
      */
-    public function set(string $field, $value): void
+    public function set(string $field, mixed $value): void
     {
         $this->validateField($field);
 
@@ -44,7 +44,7 @@ abstract class ArrayEncapsulation extends AbstractEncapsulation
      *
      * @return mixed|null
      */
-    public function get(string $field)
+    public function get(string $field): mixed
     {
         if (!$this->has($field)) {
             return null;
@@ -77,7 +77,7 @@ abstract class ArrayEncapsulation extends AbstractEncapsulation
         return null;
     }
 
-    private function validateField(string $field)
+    private function validateField(string $field): void
     {
         $allowedFields = $this->getAllowedFields();
 

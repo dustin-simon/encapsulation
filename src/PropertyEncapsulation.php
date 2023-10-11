@@ -34,7 +34,7 @@ abstract class PropertyEncapsulation extends AbstractEncapsulation
      * @throws StaticException            Thrown if no setter method was found and $field is a static property
      * @throws PropertyNotExistsException Thrown if no setter method and no non-static property was found
      */
-    public function set(string $field, $value): void
+    public function set(string $field, mixed $value): void
     {
         $reflectionObject = new \ReflectionObject($this);
 
@@ -115,7 +115,7 @@ abstract class PropertyEncapsulation extends AbstractEncapsulation
      * @throws PropertyNotExistsException Thrown if no non-static getter-method or property was found
      * @throws StaticException            Thrown if no non-static getter-method was found and the property is static
      */
-    public function get(string $field)
+    public function get(string $field): mixed
     {
         $reflectionObject = new \ReflectionObject($this);
         $getterMethodName = 'get'.\ucfirst($field);
@@ -159,7 +159,7 @@ abstract class PropertyEncapsulation extends AbstractEncapsulation
      * @param string $field The property name
      * @param mixed  $value The value to be added to an array or container
      */
-    public function add(string $field, $value): void
+    public function add(string $field, mixed $value): void
     {
         $reflectionObject = new \ReflectionObject($this);
         $adderMethodName = 'add'.\ucfirst($field);

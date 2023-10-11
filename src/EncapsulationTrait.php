@@ -30,7 +30,7 @@ trait EncapsulationTrait
     /**
      * @throws NotAnArrayException Thrown if the stored value behind the field is not an array an not a {@see} Container
      */
-    public function add(string $field, $value): void
+    public function add(string $field, mixed $value): void
     {
         if (!$this->has($field)) {
             $this->set($field, [$value]);
@@ -71,7 +71,7 @@ trait EncapsulationTrait
      */
     public function __serialize(): array
     {
-        return array_map('serialize', $this->toArray());
+        return $this->toArray();
     }
 
     /**
@@ -79,6 +79,6 @@ trait EncapsulationTrait
      */
     public function __unserialize(array $data): void
     {
-        $this->setList(array_map('unserialize', $data));
+        $this->setList($data);
     }
 }

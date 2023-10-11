@@ -17,19 +17,19 @@ abstract class AbstractObjectMapping extends ArrayEncapsulation
     /**
      * @throws \InvalidArgumentException
      */
-    public function set(string $field, $value): void
+    public function set(string $field, mixed $value): void
     {
         $this->validateType($value);
 
         parent::set($field, $value);
     }
 
-    private function validateType($value)
+    private function validateType(mixed $value): void
     {
         $class = $this->getType();
 
         if (!$value instanceof $class) {
-            throw new \InvalidArgumentException(sprintf('Value must be %s. %s given', $class, is_object($value) ? get_class($value) : gettype($value)));
+            throw new \InvalidArgumentException(sprintf('Value must be %s. %s given', $class, get_debug_type($value)));
         }
     }
 }

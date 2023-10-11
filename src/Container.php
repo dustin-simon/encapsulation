@@ -70,7 +70,7 @@ class Container implements \Countable, \IteratorAggregate, \JsonSerializable
      *
      * @throws \InvalidArgumentException
      */
-    public function add(...$elements): self
+    public function add(mixed ...$elements): self
     {
         foreach ($elements as $element) {
             $this->validateType($element);
@@ -95,7 +95,7 @@ class Container implements \Countable, \IteratorAggregate, \JsonSerializable
      *
      * @return mixed|null The element at $position or null
      */
-    public function getAt(int $position)
+    public function getAt(int $position): mixed
     {
         return array_values($this->elements)[$position] ?? null;
     }
@@ -127,7 +127,7 @@ class Container implements \Countable, \IteratorAggregate, \JsonSerializable
      */
     public function map(callable $callable): self
     {
-        return new static(array_map($callable, array_values($this->elements)));
+        return new self(array_map($callable, array_values($this->elements)));
     }
 
     /**
@@ -136,10 +136,8 @@ class Container implements \Countable, \IteratorAggregate, \JsonSerializable
      * @see \array_reduce()
      *
      * @param mixed $initial
-     *
-     * @return mixed
      */
-    public function reduce(callable $callable, $initial = null)
+    public function reduce(callable $callable, mixed $initial = null): mixed
     {
         return array_reduce($this->elements, $callable, $initial);
     }
@@ -178,7 +176,7 @@ class Container implements \Countable, \IteratorAggregate, \JsonSerializable
      *
      * @return self The container itself
      */
-    public function splice(int $offset, ?int $length = null, $replacement = []): self
+    public function splice(int $offset, ?int $length = null, mixed $replacement = []): self
     {
         array_splice($this->elements, $offset, $length, $replacement);
 
@@ -204,7 +202,7 @@ class Container implements \Countable, \IteratorAggregate, \JsonSerializable
      *
      * @return mixed|null The shifted element or null
      */
-    public function shift()
+    public function shift(): mixed
     {
         return array_shift($this->elements);
     }
@@ -214,11 +212,9 @@ class Container implements \Countable, \IteratorAggregate, \JsonSerializable
      *
      * @see \array_unshift()
      *
-     * @param mixed ...$elements
-     *
      * @return self The container itself
      */
-    public function unshift(...$elements): self
+    public function unshift(mixed ...$elements): self
     {
         array_unshift($this->elements, ...$elements);
 
@@ -232,7 +228,7 @@ class Container implements \Countable, \IteratorAggregate, \JsonSerializable
      *
      * @return mixed|null The last element or null
      */
-    public function pop()
+    public function pop(): mixed
     {
         return array_pop($this->elements);
     }
@@ -254,11 +250,9 @@ class Container implements \Countable, \IteratorAggregate, \JsonSerializable
      *
      * @see \array_walk()
      *
-     * @param mixed|null $arg
-     *
      * @return self The container itself
      */
-    public function walk(callable $callable, $arg = null): self
+    public function walk(callable $callable, mixed $arg = null): self
     {
         array_walk($this->elements, $callable, $arg);
 
@@ -282,11 +276,9 @@ class Container implements \Countable, \IteratorAggregate, \JsonSerializable
      *
      * @see \array_search()
      *
-     * @param mixed $needle
-     *
      * @return int|false The position of the searched element or false if not found
      */
-    public function search($needle, bool $strict = false): ?int
+    public function search(mixed $needle, bool $strict = false): ?int
     {
         return array_search($needle, array_values($this->elements), $strict);
     }
@@ -296,11 +288,9 @@ class Container implements \Countable, \IteratorAggregate, \JsonSerializable
      *
      * @see \in_array()
      *
-     * @param mixed $value
-     *
      * @return bool Wether the value exists or not
      */
-    public function has($value): bool
+    public function has(mixed $value): bool
     {
         return in_array($value, $this->elements);
     }
@@ -372,7 +362,7 @@ class Container implements \Countable, \IteratorAggregate, \JsonSerializable
         return null;
     }
 
-    private function validateType($element)
+    private function validateType(mixed $element): void
     {
         $class = $this->getAllowedClass();
 

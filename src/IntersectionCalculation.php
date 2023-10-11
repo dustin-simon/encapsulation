@@ -159,7 +159,7 @@ class IntersectionCalculation
      *
      * @return bool False if the value is a resource or an object and not instance of {@see} AbstractEncapsulation. True otherwise.
      */
-    public static function isComparable($value): bool
+    public static function isComparable(mixed $value): bool
     {
         return !(
             \is_resource($value) ||

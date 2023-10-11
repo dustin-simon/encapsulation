@@ -13,14 +13,14 @@ class NestedEncapsulation extends ArrayEncapsulation
     /**
      * @throws \InvalidArgumentException
      */
-    public function set(string $field, $value): void
+    public function set(string $field, mixed $value): void
     {
         $this->validate($value);
 
         parent::set($field, $value);
     }
 
-    private function validate($value)
+    private function validate(mixed $value): void
     {
         if (
             $value === null ||
