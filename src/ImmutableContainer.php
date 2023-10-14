@@ -30,7 +30,7 @@ class ImmutableContainer extends Container
     /**
      * @throws ImmutableException
      */
-    public function add(...$elements): Container
+    public function add(mixed ...$elements): Container
     {
         throw new ImmutableException($this);
     }
@@ -46,7 +46,7 @@ class ImmutableContainer extends Container
     /**
      * @throws ImmutableException
      */
-    public function splice(int $offset, ?int $length = null, $replacement = []): Container
+    public function splice(int $offset, ?int $length = null, mixed $replacement = []): Container
     {
         throw new ImmutableException($this);
     }
@@ -54,7 +54,7 @@ class ImmutableContainer extends Container
     /**
      * @throws ImmutableException
      */
-    public function shift()
+    public function shift(): mixed
     {
         throw new ImmutableException($this);
     }
@@ -62,7 +62,7 @@ class ImmutableContainer extends Container
     /**
      * @throws ImmutableException
      */
-    public function unshift(...$elements): Container
+    public function unshift(mixed ...$elements): Container
     {
         throw new ImmutableException($this);
     }
@@ -70,7 +70,7 @@ class ImmutableContainer extends Container
     /**
      * @throws ImmutableException
      */
-    public function pop()
+    public function pop(): mixed
     {
         throw new ImmutableException($this);
     }

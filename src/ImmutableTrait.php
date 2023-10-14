@@ -19,7 +19,7 @@ trait ImmutableTrait
     /**
      * @throws ImmutableException
      */
-    public function set(string $field, $value): void
+    public function set(string $field, mixed $value): void
     {
         throw new ImmutableException($this);
     }
@@ -27,7 +27,7 @@ trait ImmutableTrait
     /**
      * @throws ImmutableException
      */
-    public function add(string $field, $value): void
+    public function add(string $field, mixed $value): void
     {
         throw new ImmutableException($this);
     }
@@ -48,10 +48,10 @@ trait ImmutableTrait
     /**
      * @ignore
      */
-    public function __clone()
+    public function __clone(): void
     {
         foreach ($this->toArray() as $field => $value) {
-            if (\is_object($value)) {
+            if ($value instanceof AbstractEncapsulation) {
                 parent::set($field, clone $value);
             }
         }

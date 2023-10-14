@@ -37,7 +37,7 @@ abstract class AbstractEncapsulation implements EncapsulationInterface
     }
 
     /**
-     * Returns true of false wether the data of the encapsulation can be changed.
+     * Returns true or false wether the data of the encapsulation can be changed.
      */
     public function isMutable(): bool
     {
@@ -91,10 +91,10 @@ abstract class AbstractEncapsulation implements EncapsulationInterface
     /**
      * @ignore
      */
-    public function __clone()
+    public function __clone(): void
     {
         foreach ($this->toArray() as $field => $value) {
-            if (\is_object($value)) {
+            if ($value instanceof self) {
                 $this->set($field, clone $value);
             }
         }

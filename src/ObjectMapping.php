@@ -35,10 +35,10 @@ class ObjectMapping extends AbstractObjectMapping
      */
     public function __serialize(): array
     {
-        return serialize([
+        return [
             'objectClass' => $this->objectClass,
             'data' => $this->toArray(),
-        ]);
+        ];
     }
 
     /**
@@ -46,8 +46,6 @@ class ObjectMapping extends AbstractObjectMapping
      */
     public function __unserialize(array $data): void
     {
-        $data = unserialize($data);
-
         $this->objectClass = $data['objectClass'];
         $this->setList($data['data']);
     }

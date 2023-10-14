@@ -13,14 +13,14 @@ class NestedEncapsulation extends ArrayEncapsulation
     /**
      * @throws \InvalidArgumentException
      */
-    public function set(string $field, $value): void
+    public function set(string $field, mixed $value): void
     {
         $this->validate($value);
 
         parent::set($field, $value);
     }
 
-    private function validate($value)
+    private function validate(mixed $value): void
     {
         if (
             $value === null ||
@@ -43,8 +43,6 @@ class NestedEncapsulation extends ArrayEncapsulation
             return;
         }
 
-        $type = is_object($value) ? get_class($value) : gettype($value);
-
-        throw new \InvalidArgumentException(\sprintf('A NestedEncapsulation can only contain scalar values, null, arrays or other NestedEncapsulations. %s given.', $type));
+        throw new \InvalidArgumentException(\sprintf('A NestedEncapsulation can only contain scalar values, null, arrays or other NestedEncapsulations. %s given.', get_debug_type($value)));
     }
 }
