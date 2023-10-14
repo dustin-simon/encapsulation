@@ -21,7 +21,7 @@ interface EncapsulationInterface extends \ArrayAccess, \IteratorAggregate, \Json
      * @param string $field The name of the field
      * @param mixed  $value The stored value behind the field
      */
-    public function set(string $field, $value): void;
+    public function set(string $field, mixed $value): void;
 
     /**
      * Sets multiple values at once.
@@ -52,7 +52,7 @@ interface EncapsulationInterface extends \ArrayAccess, \IteratorAggregate, \Json
      *
      * @return mixed The stored value behind the requested field
      */
-    public function get(string $field);
+    public function get(string $field): mixed;
 
     /**
      * Returns multiple values at once.
@@ -89,7 +89,7 @@ interface EncapsulationInterface extends \ArrayAccess, \IteratorAggregate, \Json
      * @param string $field The name of the field which should hold an array or {@see} Container
      * @param mixed  $value The value to be added to the list
      */
-    public function add(string $field, $value): void;
+    public function add(string $field, mixed $value): void;
 
     /**
      * Adds multiple values to a list at once.

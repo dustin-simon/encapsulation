@@ -10,7 +10,7 @@ trait ArrayAccessTrait
     /**
      * @ignore
      */
-    public function offsetExists($offset): bool
+    public function offsetExists(mixed $offset): bool
     {
         return $this->has(\strval($offset));
     }
@@ -18,7 +18,7 @@ trait ArrayAccessTrait
     /**
      * @ignore
      */
-    public function offsetGet($offset)
+    public function offsetGet(mixed $offset): mixed
     {
         return $this->get(\strval($offset));
     }
@@ -26,7 +26,7 @@ trait ArrayAccessTrait
     /**
      * @ignore
      */
-    public function offsetSet($offset, $value): void
+    public function offsetSet(mixed $offset, mixed $value): void
     {
         if (\is_null($offset)) {
             throw new \RuntimeException('You can not set a value to an Encapsulation without offset.');
@@ -38,7 +38,7 @@ trait ArrayAccessTrait
     /**
      * @ignore
      */
-    public function offsetUnset($offset): void
+    public function offsetUnset(mixed $offset): void
     {
         $this->unset(\strval($offset));
     }

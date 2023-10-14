@@ -7,7 +7,7 @@ namespace Dustin\Encapsulation;
  */
 trait JsonSerializableTrait
 {
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         return $this->toArray();
     }
