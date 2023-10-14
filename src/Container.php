@@ -338,7 +338,7 @@ class Container implements \Countable, \IteratorAggregate, \JsonSerializable
      */
     public function __serialize(): array
     {
-        return array_map('serialize', array_values($this->elements));
+        return array_values($this->elements);
     }
 
     /**
@@ -346,7 +346,7 @@ class Container implements \Countable, \IteratorAggregate, \JsonSerializable
      */
     public function __unserialize(array $data): void
     {
-        $this->elements = array_values(array_map('unserialize', $data));
+        $this->elements = array_values($data);
     }
 
     /**
@@ -370,10 +370,8 @@ class Container implements \Countable, \IteratorAggregate, \JsonSerializable
             return;
         }
 
-        if (!is_object($element) || !($element instanceof $class)) {
-            $type = is_object($element) ? get_class($element) : gettype($element);
-
-            throw new \InvalidArgumentException(sprintf('Container can only hold %s got %s', $class, $type));
+        if (!$element instanceof $class) {
+            throw new \InvalidArgumentException(sprintf('Container can only hold %s. Got %s', $class, get_debug_type($element)));
         }
     }
 }

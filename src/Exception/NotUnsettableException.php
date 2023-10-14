@@ -6,15 +6,10 @@ use Dustin\Encapsulation\EncapsulationInterface;
 
 class NotUnsettableException extends EncapsulationException
 {
-    /**
-     * @var string
-     */
-    private $field;
-
-    public function __construct(EncapsulationInterface $encapsulation, string $field)
-    {
-        $this->field = $field;
-
+    public function __construct(
+        EncapsulationInterface $encapsulation,
+        private string $field
+    ) {
         parent::__construct(
             $encapsulation,
             \sprintf("Field '%s' is not unsettable", $field)

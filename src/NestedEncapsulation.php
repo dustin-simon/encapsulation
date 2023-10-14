@@ -43,8 +43,6 @@ class NestedEncapsulation extends ArrayEncapsulation
             return;
         }
 
-        $type = is_object($value) ? get_class($value) : gettype($value);
-
-        throw new \InvalidArgumentException(\sprintf('A NestedEncapsulation can only contain scalar values, null, arrays or other NestedEncapsulations. %s given.', $type));
+        throw new \InvalidArgumentException(\sprintf('A NestedEncapsulation can only contain scalar values, null, arrays or other NestedEncapsulations. %s given.', get_debug_type($value)));
     }
 }
