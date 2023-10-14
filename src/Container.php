@@ -278,7 +278,7 @@ class Container implements \Countable, \IteratorAggregate, \JsonSerializable
      *
      * @return int|false The position of the searched element or false if not found
      */
-    public function search(mixed $needle, bool $strict = false): ?int
+    public function search(mixed $needle, bool $strict = false): string|int|false
     {
         return array_search($needle, array_values($this->elements), $strict);
     }
