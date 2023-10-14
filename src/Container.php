@@ -134,8 +134,6 @@ class Container implements \Countable, \IteratorAggregate, \JsonSerializable
      * Iteratively reduces the container's elements to a single value using a callback function.
      *
      * @see \array_reduce()
-     *
-     * @param mixed $initial
      */
     public function reduce(callable $callable, mixed $initial = null): mixed
     {

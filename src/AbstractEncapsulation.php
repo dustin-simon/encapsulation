@@ -37,7 +37,7 @@ abstract class AbstractEncapsulation implements EncapsulationInterface
     }
 
     /**
-     * Returns true of false wether the data of the encapsulation can be changed.
+     * Returns true or false wether the data of the encapsulation can be changed.
      */
     public function isMutable(): bool
     {
