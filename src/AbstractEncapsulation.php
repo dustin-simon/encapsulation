@@ -94,7 +94,7 @@ abstract class AbstractEncapsulation implements EncapsulationInterface
     public function __clone(): void
     {
         foreach ($this->toArray() as $field => $value) {
-            if (\is_object($value)) {
+            if ($value instanceof self) {
                 $this->set($field, clone $value);
             }
         }

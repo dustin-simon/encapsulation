@@ -51,7 +51,7 @@ trait ImmutableTrait
     public function __clone(): void
     {
         foreach ($this->toArray() as $field => $value) {
-            if (\is_object($value)) {
+            if ($value instanceof AbstractEncapsulation) {
                 parent::set($field, clone $value);
             }
         }
