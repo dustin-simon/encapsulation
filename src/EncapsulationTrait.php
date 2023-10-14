@@ -28,7 +28,7 @@ trait EncapsulationTrait
     }
 
     /**
-     * @throws NotAnArrayException Thrown if the stored value behind the field is not an array an not a {@see} Container
+     * @throws NotAnArrayException Thrown if the stored value behind the field is not an array and not a {@see} Container
      */
     public function add(string $field, mixed $value): void
     {
